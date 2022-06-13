@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Sign up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+</head>
+<style>
+    .animation {
+        animation: cColors 10s linear 0s infinite;
+    }
+
+    @keyframes cColors {
+        0% {
+            background-color: orangered;
+        }
+
+        20% {
+            background-color: rgb(43, 1, 1);
+        }
+
+        40% {
+            background-color: rgba(39, 23, 2, 0.685);
+        }
+
+        60% {
+            background-color: rgb(128, 4, 4);
+        }
+
+        80% {
+            background-color: rgb(157, 255, 0);
+        }
+
+        100% {
+            background-color: orange;
+        }
+    }
+</style>
+
+<body class="bg-dark">
+    <div class="container">
+        <div class="row shadow-lg mt-3 border rounded-3">
+            <div class="col-sm-6 animation text-center">
+                <h3 class="text-light mt-5">Create your Account for free</h3>
+            </div>
+            <div class="col-sm-6">
+                <h2 class="card-header text-center">CREATE AN ACCOUNT</h2>
+                <div class="form-floating">
+                    <input type="text" name="firstname" id="fn" placeholder="Firstname" class="form-control my-2">
+                    <label for="">Firstname</label>
+                </div>
+                <div class="form-floating">
+                    <input type="text" name="Lastname" id="ln" placeholder="Lastname" class="form-control my-2">
+                    <label for="">Lastname</label>
+                </div>
+                <div class="form-floating">
+                    <input type="email" name="Email" id="em" placeholder="Email" class="form-control my-2">
+                    <label for="">Email</label>
+                </div>
+                <div class="form-floating">
+                    <input type="number" name="Contact" id="ct" placeholder="Contact" class="form-control my-2">
+                    <label for="">Contact</label>
+                </div>
+                <div class="form-floating">
+                    <input type="text" name="Address" id="ad" placeholder="Address" class="form-control my-2">
+                    <label for="">Address</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" name="Password" id="pw" placeholder="Password" class="form-control my-2">
+                    <label for="">Password</label>
+                </div>
+                <div class="col-12 text-light">
+                    <p>Already have an account <span><a href="/login.html">Login</a> here</span></p>
+                 </div>
+                <div class="btn w-100">
+                    <button class="btn btn-warning my-2 py-2 text-light animation w-100" onclick="signup()">SIGN
+                        UP</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let userArray = [];
+        const signup = () => {
+            if (localStorage.users != null) {
+                userArray = JSON.parse(localStorage.getItem("users"))
+            }
+            let firstname = fn.value
+            let lastname = ln.value
+            let email = em.value
+            let password = pw.value
+            let contact = ct.value
+            let address = ad.value
+            let found = userArray.find((jj) => jj.email == email)
+            if (fn.value == "") {
+                alert(`All field is required`)
+            }
+            else if (found) {
+                alert(`The email has already been used`)
+            }
+            else{
+                let userObj = { firstname, lastname, email, password,contact, address }
+                userArray.push(userObj)
+                let jsonString = JSON.stringify(userArray)
+                localStorage.setItem("users", jsonString)
+                location.href = '/login.html'
+            }
+        }
+    </script>
+</body>
+
+</html>
